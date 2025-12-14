@@ -4,7 +4,7 @@ const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
 const sql = neon(databaseUrl);
 
-Deno.cron("Release reserved numbers expired", { minute: 1 }, async () => {
+Deno.cron("Release reserved numbers expired", { minute: 10 }, async () => {
   try {
     await sql`update
                 number_slots
@@ -19,6 +19,10 @@ Deno.cron("Release reserved numbers expired", { minute: 1 }, async () => {
   } catch (err) {
     console.error("Error releasing reserved numbers:", err);
   }
+});
+
+Deno.serve((_) => {
+  return new Response("Giway Cron Jobs is running.");
 });
 
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
