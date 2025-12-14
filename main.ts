@@ -4,7 +4,7 @@ const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
 const sql = neon(databaseUrl);
 
-Deno.cron("Release reserved numbers expired", { minute: 10 }, async () => {
+Deno.cron("Release reserved numbers expired", "*/10 * * * *", async () => {
   try {
     await sql`update
                 number_slots
@@ -22,7 +22,7 @@ Deno.cron("Release reserved numbers expired", { minute: 10 }, async () => {
   }
 });
 
-Deno.cron("Test cron logs", "01 * * * *", () => {
+Deno.cron("Test cron logs", "* * * * *", () => {
   console.log("Cron job executed at", new Date().toISOString());
 });
 
