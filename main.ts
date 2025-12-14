@@ -1,4 +1,5 @@
 import { neon } from "@neon/serverless";
+import { checkAndGrantMonthlyAllowance } from "./lib/monthly-allowance.ts";
 
 const databaseUrl = Deno.env.get("DATABASE_URL")!;
 
@@ -16,14 +17,15 @@ Deno.cron("Release reserved numbers expired", "*/10 * * * *", async () => {
               where
                 status = 'reserved'
                 and expires_at < now();`;
-    console.log("Released expired reserved numbers.");
   } catch (err) {
     console.error("Error releasing reserved numbers:", err);
   }
 });
 
-Deno.cron("Test cron logs", "* * * * *", () => {
-  console.log("Cron job executed at", new Date().toISOString());
+Deno.cron("Add to users - free monthly allowance", "0 0 1 * *", () => {
+  checkAndGrantMonthlyAllowance(sql).catch((err) => {
+    console.error("Error granting monthly allowance:", err);
+  });
 });
 
 Deno.serve((_) => {
@@ -32,5 +34,4 @@ Deno.serve((_) => {
 
 // Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
 // if (import.meta.main) {
-//   console.log("Add 2 + 3 =", add(2, 3));
 // }
