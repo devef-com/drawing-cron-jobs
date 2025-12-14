@@ -22,6 +22,10 @@ Deno.cron("Release reserved numbers expired", { minute: 10 }, async () => {
   }
 });
 
+Deno.cron("Test cron logs", "01 * * * *", () => {
+  console.log("Cron job executed at", new Date().toISOString());
+});
+
 Deno.serve((_) => {
   return new Response("Giway Cron Jobs is running.");
 });
