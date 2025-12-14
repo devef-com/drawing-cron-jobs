@@ -1,0 +1,10 @@
+{
+  "tasks": {
+    "dev": "deno run --watch --unstable-cron main.ts"
+  },
+  "imports": {
+    "@neon/serverless": "jsr:@neon/serverless@^1.0.1",
+    "@std/assert": "jsr:@std/assert@1",
+    "@postgres": "jsr:@bartlomieju/postgres"
+  }
+}

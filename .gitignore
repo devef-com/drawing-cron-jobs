@@ -1,0 +1,28 @@
+.env
+node_modules/
+dist/
+build/
+.DS_Store
+# .vscode/
+
+# Deno specific
+deno.lock
+deno_dir/
+deps.ts
+test_deps.ts
+
+# Logs
+*.log
+
+# Coverage
+coverage/
+lcov.info
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db
