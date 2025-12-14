@@ -16,6 +16,7 @@ Deno.cron("Release reserved numbers expired", { minute: 10 }, async () => {
               where
                 status = 'reserved'
                 and expires_at < now();`;
+    console.log("Released expired reserved numbers.");
   } catch (err) {
     console.error("Error releasing reserved numbers:", err);
   }
